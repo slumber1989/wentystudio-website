@@ -1,3 +1,7 @@
+/* 引入字体 */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+@import url('https://cdn.jsdelivr.net/npm/lxgw-neo-zhisong-screen-web@1.0.0/style.css');
+
 /* Anthropic 风格配色 */
 :root {
     --cream: #FAF7F5;
@@ -17,10 +21,13 @@
 }
 
 body {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica', 'Arial', sans-serif;
+    font-family: 'Inter', 'LXGW Neo ZhiSong Screen', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica', 'Arial', sans-serif;
     background-color: var(--cream);
     color: var(--text-primary);
     line-height: 1.6;
+    font-feature-settings: 'liga' 1, 'calt' 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
 .container {

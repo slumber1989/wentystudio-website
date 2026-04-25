@@ -1,0 +1,321 @@
+/* Anthropic 风格配色 */
+:root {
+    --cream: #FAF7F5;
+    --warm-brown: #CC785C;
+    --dark-brown: #8B5A3C;
+    --text-primary: #2D2D2D;
+    --text-secondary: #6B6B6B;
+    --white: #FFFFFF;
+    --light-gray: #F5F5F5;
+    --border-color: #E8E8E8;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica', 'Arial', sans-serif;
+    background-color: var(--cream);
+    color: var(--text-primary);
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 24px;
+}
+
+/* 导航栏 */
+.navbar {
+    background-color: var(--white);
+    border-bottom: 1px solid var(--border-color);
+    padding: 20px 0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.navbar .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: 600;
+    color: var(--warm-brown);
+}
+
+.nav-links {
+    display: flex;
+    gap: 32px;
+}
+
+.nav-links a {
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s;
+}
+
+.nav-links a:hover {
+    color: var(--warm-brown);
+}
+
+/* 首页横幅 */
+.hero {
+    padding: 120px 0 80px;
+    text-align: center;
+}
+
+.hero h1 {
+    font-size: 56px;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 24px;
+    line-height: 1.2;
+}
+
+.subtitle {
+    font-size: 20px;
+    color: var(--text-secondary);
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+/* 工具展示区 */
+.tools-section {
+    padding: 80px 0;
+    background-color: var(--white);
+}
+
+.section-title {
+    font-size: 40px;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 60px;
+    color: var(--text-primary);
+}
+
+.tools-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    gap: 32px;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.tool-card {
+    background: var(--cream);
+    border-radius: 16px;
+    padding: 40px;
+    position: relative;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.tool-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08);
+}
+
+.tool-card.featured {
+    border: 2px solid var(--warm-brown);
+}
+
+.badge {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: var(--warm-brown);
+    color: var(--white);
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.tool-icon {
+    font-size: 48px;
+    margin-bottom: 20px;
+}
+
+.tool-card h3 {
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 16px;
+    color: var(--text-primary);
+}
+
+.tool-card p {
+    color: var(--text-secondary);
+    margin-bottom: 24px;
+    line-height: 1.7;
+}
+
+.feature-list {
+    list-style: none;
+    margin-bottom: 32px;
+}
+
+.feature-list li {
+    padding: 8px 0;
+    color: var(--text-secondary);
+    position: relative;
+    padding-left: 24px;
+}
+
+.feature-list li:before {
+    content: "✓";
+    position: absolute;
+    left: 0;
+    color: var(--warm-brown);
+    font-weight: bold;
+}
+
+/* 按钮 */
+.btn {
+    display: inline-block;
+    padding: 14px 32px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s;
+    border: none;
+    cursor: pointer;
+}
+
+.btn-primary {
+    background-color: var(--warm-brown);
+    color: var(--white);
+}
+
+.btn-primary:hover {
+    background-color: var(--dark-brown);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(204, 120, 92, 0.3);
+}
+
+/* 学习资源区 */
+.resources-section {
+    padding: 80px 0;
+    background-color: var(--cream);
+}
+
+.section-description {
+    text-align: center;
+    color: var(--text-secondary);
+    font-size: 18px;
+    margin-bottom: 48px;
+}
+
+.resources-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 24px;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.resource-card {
+    background: var(--white);
+    border-radius: 12px;
+    padding: 32px;
+    transition: transform 0.3s;
+}
+
+.resource-card:hover {
+    transform: translateY(-4px);
+}
+
+.resource-card h3 {
+    font-size: 20px;
+    margin-bottom: 12px;
+    color: var(--text-primary);
+}
+
+.resource-card p {
+    color: var(--text-secondary);
+    margin-bottom: 16px;
+}
+
+.link {
+    color: var(--warm-brown);
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.3s;
+}
+
+.link:hover {
+    color: var(--dark-brown);
+}
+
+/* 联系我们区 */
+.contact-section {
+    padding: 80px 0;
+    background-color: var(--white);
+}
+
+.contact-info {
+    display: flex;
+    justify-content: center;
+    gap: 80px;
+    margin-top: 48px;
+    flex-wrap: wrap;
+}
+
+.contact-item {
+    text-align: center;
+    max-width: 300px;
+}
+
+.contact-icon {
+    font-size: 48px;
+    margin-bottom: 16px;
+}
+
+.contact-item h3 {
+    font-size: 20px;
+    margin-bottom: 8px;
+    color: var(--text-primary);
+}
+
+.contact-item p {
+    color: var(--text-secondary);
+}
+
+/* 页脚 */
+.footer {
+    background-color: var(--cream);
+    padding: 40px 0;
+    text-align: center;
+    border-top: 1px solid var(--border-color);
+}
+
+.footer p {
+    color: var(--text-secondary);
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+    .hero h1 {
+        font-size: 36px;
+    }
+
+    .tools-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .nav-links {
+        gap: 16px;
+    }
+
+    .contact-info {
+        flex-direction: column;
+        gap: 40px;
+    }
+}

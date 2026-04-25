@@ -1,6 +1,14 @@
 /* 引入字体 */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
-@import url('https://cdn.jsdelivr.net/npm/lxgw-neo-zhisong-screen-web@1.0.0/style.css');
+
+/* 霞鹜新致宋屏幕阅读版 */
+@font-face {
+    font-family: 'LXGW Neo ZhiSong Screen';
+    src: url('https://cdn.jsdelivr.net/npm/lxgw-neo-zhisong-screen@1.123.0/LXGWNeoZhiSongScreenFull.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
 
 /* Anthropic 风格配色 */
 :root {

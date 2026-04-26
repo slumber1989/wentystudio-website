@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>横纵分析研究工具 - Wenty Studio</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .research-form {
+            max-width: 600px;
+            margin: 40px auto;
+            padding: 30px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #2c3e50;
+        }
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 14px;
+            font-family: inherit;
+        }
+        .form-group textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+        .submit-btn {
+            width: 100%;
+            padding: 14px;
+            background: #2c3e50;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        .submit-btn:hover {
+            background: #34495e;
+        }
+        .submit-btn:disabled {
+            background: #95a5a6;
+            cursor: not-allowed;
+        }
+        .status-message {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 6px;
+            display: none;
+        }
+        .status-message.success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .status-message.error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        .status-message.info {
+            background: #d1ecf1;
+            color: #0c5460;
+            border: 1px solid #bee5eb;
+        }
+    </style>
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="logo">Wenty Studio</div>
+            <div class="nav-links">
+                <a href="index.html">首页</a>
+                <a href="research.html">研究工具</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 研究表单 -->
+    <section class="hero">
+        <div class="container">
+            <h1>横纵分析研究工具</h1>
+            <p class="subtitle">深度研究产品、公司、概念或人物，生成专业研究报告</p>
+        </div>
+    </section>
+
+    <section style="padding: 40px 0;">
+        <div class="container">
+            <form class="research-form" id="researchForm">
+                <div class="form-group">
+                    <label for="subject">研究对象 *</label>
+                    <input
+                        type="text"
+                        id="subject"
+                        name="subject"
+                        placeholder="例如：比特币、OpenAI、Claude、马斯克"
+                        required
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="type">对象类型 *</label>
+                    <select id="type" name="type" required>
+                        <option value="">请选择</option>
+                        <option value="product">产品</option>
+                        <option value="company">公司</option>
+                        <option value="concept">概念</option>
+                        <option value="person">人物</option>
+                        <option value="other">其他</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="focus">特别关注点（可选）</label>
+                    <textarea
+                        id="focus"
+                        name="focus"
+                        placeholder="例如：重点关注技术架构演进、商业模式变化、竞争格局等"
+                    ></textarea>
+                </div>
+
+                <button type="submit" class="submit-btn" id="submitBtn">
+                    开始研究
+                </button>
+
+                <div class="status-message" id="statusMessage"></div>
+            </form>
+        </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2026 Wenty Studio. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        const form = document.getElementById('researchForm');
+        const submitBtn = document.getElementById('submitBtn');
+        const statusMessage = document.getElementById('statusMessage');
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const subject = document.getElementById('subject').value;
+            const type = document.getElementById('type').value;
+            const focus = document.getElementById('focus').value;
+
+            // 禁用按钮
+            submitBtn.disabled = true;
+            submitBtn.textContent = '正在提交...';
+
+            // 显示提交中状态
+            showStatus('info', '正在提交研究任务...');
+
+            try {
+                // 调用后端 API
+                const response = await fetch('http://localhost:5001/api/research', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        subject,
+                        type,
+                        focus: focus || undefined
+                    })
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    showStatus('success',
+                        `研究任务已提交！任务ID: ${data.task_id}<br>` +
+                        `预计需要 3-5 分钟完成，完成后将自动发送到您的飞书 reading here 文件夹。`
+                    );
+                    form.reset();
+                } else {
+                    showStatus('error', `提交失败: ${data.error || '未知错误'}`);
+                }
+            } catch (error) {
+                showStatus('error', `网络错误: ${error.message}`);
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.textContent = '开始研究';
+            }
+        });
+
+        function showStatus(type, message) {
+            statusMessage.className = `status-message ${type}`;
+            statusMessage.innerHTML = message;
+            statusMessage.style.display = 'block';
+        }
+    </script>
+</body>
+</html>

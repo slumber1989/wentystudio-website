@@ -114,24 +114,47 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="type">对象类型 *</label>
-                    <select id="type" name="type" required>
-                        <option value="">请选择</option>
-                        <option value="product">产品</option>
-                        <option value="company">公司</option>
-                        <option value="concept">概念</option>
-                        <option value="person">人物</option>
-                        <option value="other">其他</option>
-                    </select>
-                </div>
-
-                <div class="form-group">
                     <label for="focus">特别关注点（可选）</label>
                     <textarea
                         id="focus"
                         name="focus"
                         placeholder="例如：重点关注技术架构演进、商业模式变化、竞争格局等"
                     ></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="feishu_app_id">飞书 App ID *</label>
+                    <input
+                        type="text"
+                        id="feishu_app_id"
+                        name="feishu_app_id"
+                        placeholder="cli_xxxxxxxxxx"
+                        required
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="feishu_app_secret">飞书 App Secret *</label>
+                    <input
+                        type="password"
+                        id="feishu_app_secret"
+                        name="feishu_app_secret"
+                        placeholder="输入飞书应用密钥"
+                        required
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="feishu_folder_token">飞书文件夹 Token（可选）</label>
+                    <input
+                        type="text"
+                        id="feishu_folder_token"
+                        name="feishu_folder_token"
+                        placeholder="留空则发送到根目录"
+                    >
+                    <small style="color: #666; font-size: 12px; margin-top: 4px; display: block;">
+                        如何获取文件夹 Token：打开飞书云文档文件夹，URL 中 fldcn 开头的字符串即为 folder_token
+                    </small>
                 </div>
 
                 <button type="submit" class="submit-btn" id="submitBtn">
@@ -159,8 +182,10 @@
             e.preventDefault();
 
             const subject = document.getElementById('subject').value;
-            const type = document.getElementById('type').value;
             const focus = document.getElementById('focus').value;
+            const feishu_app_id = document.getElementById('feishu_app_id').value;
+            const feishu_app_secret = document.getElementById('feishu_app_secret').value;
+            const feishu_folder_token = document.getElementById('feishu_folder_token').value;
 
             // 禁用按钮
             submitBtn.disabled = true;
@@ -178,8 +203,10 @@
                     },
                     body: JSON.stringify({
                         subject,
-                        type,
-                        focus: focus || undefined
+                        focus: focus || undefined,
+                        feishu_app_id,
+                        feishu_app_secret,
+                        feishu_folder_token: feishu_folder_token || undefined
                     })
                 });
 
@@ -188,7 +215,7 @@
                 if (response.ok) {
                     showStatus('success',
                         `研究任务已提交！任务ID: ${data.task_id}<br>` +
-                        `预计需要 3-5 分钟完成，完成后将自动发送到您的飞书 reading here 文件夹。`
+                        `预计需要 10-20 分钟完成，完成后将自动发送到您的飞书文件夹。`
                     );
                     form.reset();
                 } else {

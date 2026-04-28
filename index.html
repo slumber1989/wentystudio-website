@@ -15,7 +15,6 @@
                 <a href="#tools">工具</a>
                 <a href="#resources">学习资源</a>
                 <a href="#contact">联系我们</a>
-                <span id="authArea"></span>
             </div>
         </div>
     </nav>
@@ -120,47 +119,5 @@
             <p>&copy; 2026 Wenty Studio. All rights reserved.</p>
         </div>
     </footer>
-
-    <script>
-        const AUTH_API = 'https://auth.wentystudio.com';
-        // const AUTH_API = 'http://localhost:8002';  // 本地测试时取消注释
-
-        async function checkAuth() {
-            try {
-                const response = await fetch(`${AUTH_API}/me`, {
-                    credentials: 'include'
-                });
-
-                const authArea = document.getElementById('authArea');
-
-                if (response.ok) {
-                    const data = await response.json();
-                    authArea.innerHTML = `
-                        <span style="color: var(--text-secondary); font-size: 14px;">${data.email}</span>
-                        <a href="#" onclick="doLogout(event)" style="margin-left: 12px;">登出</a>
-                    `;
-                } else {
-                    authArea.innerHTML = '<a href="login.html">登录</a>';
-                }
-            } catch (error) {
-                document.getElementById('authArea').innerHTML = '<a href="login.html">登录</a>';
-            }
-        }
-
-        async function doLogout(event) {
-            event.preventDefault();
-
-            try {
-                await fetch(`${AUTH_API}/logout`, {
-                    method: 'POST',
-                    credentials: 'include'
-                });
-            } catch (e) {}
-
-            window.location.reload();
-        }
-
-        checkAuth();
-    </script>
 </body>
 </html>
